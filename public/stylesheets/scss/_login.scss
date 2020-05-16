@@ -1,0 +1,21 @@
+.login-text-inputs {
+	width: 100%;
+	display: flex;
+	margin-top: 40px;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.login-checkbox {
+	margin-top: 4px;
+	margin-left: auto;
+}
+
+.login-buttons {
+	width: 100%;
+	display: flex;
+	margin-top: 16px;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}

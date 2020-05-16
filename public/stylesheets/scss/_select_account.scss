@@ -1,0 +1,9 @@
+.select-account-buttons {
+	display: flex;
+	margin-top: 20px;
+	flex-direction: column;
+
+	form:not(:first-child) {
+        margin-top: 10px;
+	}
+}

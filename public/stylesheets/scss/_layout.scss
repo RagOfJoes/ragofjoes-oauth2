@@ -1,0 +1,161 @@
+@import 'reset';
+@import 'login';
+@import 'signup';
+@import 'consent';
+@import 'overrides';
+@import 'select_account';
+
+body {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	font-family: 'Roboto', sans-serif;
+}
+
+.container {
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.card {
+	width: 100%;
+	margin: 10px;
+	display: flex;
+	max-width: 400px;
+	overflow: hidden;
+	border-radius: 4px;
+	padding: 60px 30px;
+	align-items: center;
+	flex-direction: column;
+	background-color: #fff;
+	justify-content: center;
+
+	.page-hints {
+		display: flex;
+		margin-top: 16px;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+
+		h2,
+		p {
+			margin: 0;
+			margin-top: 4px;
+		}
+	}
+
+	form {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: space-between;
+
+		@media (max-width: 410px) {
+			width: auto;
+		}
+	}
+
+	.form-error {
+		top: 20px;
+		width: 80%;
+		height: 40px;
+		color: #fff;
+		display: flex;
+		cursor: pointer;
+		min-width: 300px;
+		max-width: 1400px;
+		position: absolute;
+		border-radius: 4px;
+		align-items: center;
+		flex-direction: row;
+		justify-content: center;
+		animation-fill-mode: forwards;
+		-webkit-animation-fill-mode: forwards;
+		background-color: var(--mdc-theme-error);
+		animation: appear ease-in 800ms forwards;
+		/* Opera */
+		-o-animation: appear ease-in 800ms forwards;
+		/* Firefox */
+		-moz-animation: appear ease-in 800ms forwards;
+		/* Safari and Chrome */
+		-webkit-animation: appear ease-in 800ms forwards;
+
+		p {
+			margin-left: 10px;
+		}
+	}
+
+	.error-hide {
+		animation-fill-mode: forwards;
+		-webkit-animation-fill-mode: forwards;
+		animation: disappear ease-out 600ms forwards;
+		/* Opera */
+		-o-animation: disappear ease-out 600ms forwards;
+		/* Firefox */
+		-moz-animation: disappear ease-out 600ms forwards;
+		/* Safari and Chrome */
+		-webkit-animation: disappear ease-out 600ms forwards;
+	}
+}
+
+.idp-logo {
+	width: 100%;
+	max-width: 100px;
+}
+
+.grant-debug {
+	width: 100%;
+	color: #999;
+	font-size: 12px;
+	margin-top: 20px;
+	text-align: center;
+	font-family: Fixed, monospace;
+}
+.grant-debug div {
+	padding-top: 10px;
+}
+.login-help + form {
+	margin-top: 10px;
+}
+
+@keyframes appear {
+	0% {
+		top: -100px;
+	}
+	100% {
+		top: 10px;
+	}
+}
+@-webkit-keyframes appear {
+	0% {
+		top: -100px;
+	}
+	100% {
+		top: 10px;
+	}
+}
+
+@keyframes disappear {
+	0% {
+		top: 10px;
+	}
+	100% {
+		top: -100px;
+		display: none;
+	}
+}
+@-webkit-keyframes disappear {
+	0% {
+		top: 10px;
+	}
+	100% {
+		top: -100px;
+		display: none;
+	}
+}

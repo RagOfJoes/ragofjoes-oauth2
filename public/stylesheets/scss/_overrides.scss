@@ -1,0 +1,52 @@
+:root {
+	--mdc-theme-primary: rgb(91, 103, 175);
+	--mdc-theme-secondary: #afa25b;
+	--mdc-theme-background: #f5f5f5;
+	--mdc-theme-error: #b00020;
+}
+
+// MARK: DISABLE FOCUS
+.mdc-ripple-upgraded--background-focused::before {
+	opacity: 0 !important;
+}
+
+.mdc-checkbox.mdc-ripple-upgraded--background-focused .mdc-checkbox__ripple::before,
+.mdc-checkbox:not(.mdc-ripple-upgraded):focus .mdc-checkbox__ripple::before {
+	opacity: 0 !important;
+}
+
+.mdc-button .mdc-button__ripple::before,
+.mdc-button .mdc-button__ripple::after {
+	opacity: 0 !important;
+}
+
+// MARK: TEXT FIELD
+.mdc-text-field {
+	width: 100%;
+}
+
+.mdc-text-field:not(:first-child) {
+	margin-top: 12px;
+}
+
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+	color: rgba(0, 0, 0, 0.6);
+}
+
+.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+	color: var(--mdc-theme-primary);
+}
+
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {
+	color: var(--mdc-theme-error);
+}
+
+.mdc-text-field--with-trailing-icon {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	button {
+		color: rgba(0, 0, 0, 0.651);
+	}
+}

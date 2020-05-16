@@ -1,0 +1,35 @@
+{
+	"name": "test_oidc_oauth2",
+	"version": "0.0.1-alpha",
+	"description": "Testing Identity Provider",
+	"main": "index.js",
+	"engines": {
+		"node": ">=12.0.0"
+	},
+	"scripts": {
+		"watch:server": "nodemon index.js",
+		"watch:devServer": "nodemon index.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Victor Ragojos",
+	"license": "ISC",
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"body-parser": "^1.19.0",
+		"cookie-parser": "^1.4.4",
+		"cors": "^2.8.5",
+		"ejs": "^3.0.1",
+		"express": "^4.17.1",
+		"helmet": "^3.21.2",
+		"jose": "^1.21.1",
+		"lodash": "^4.17.15",
+		"mongoose": "^5.8.10",
+		"nanoid": "^2.1.10",
+		"oidc-provider": "^6.20.1"
+	},
+	"devDependencies": {
+		"dotenv": "^8.2.0",
+		"node-sass": "^4.13.1",
+		"nodemon": "^2.0.2"
+	}
+}

@@ -1,0 +1,16 @@
+<div class="select-account-buttons">
+	<form autocomplete="off" action="/idp/interaction/<%= uid %>/continue" method="post">
+		<button autofocus type="submit" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+			<span class="mdc-button__ripple"></span>
+			Continue as <%= email %>
+		</button>
+	</form>
+
+	<form autocomplete="off" action="/interaction/<%= uid %>/continue" method="post">
+		<input type="hidden" name="switch" value="true" />
+		<button type="submit" class="mdc-button" data-mdc-auto-init="MDCRipple">
+			<span class="mdc-button__ripple"></span>
+			Switch account
+		</button>
+	</form>
+</div>
