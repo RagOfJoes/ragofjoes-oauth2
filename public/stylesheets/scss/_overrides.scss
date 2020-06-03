@@ -1,6 +1,6 @@
 :root {
-	--mdc-theme-primary: rgb(91, 103, 175);
-	--mdc-theme-secondary: #afa25b;
+	--mdc-theme-primary: #2a2f56;
+	--mdc-theme-secondary: #3f3f3f;
 	--mdc-theme-background: #f5f5f5;
 	--mdc-theme-error: #b00020;
 }
@@ -48,5 +48,49 @@
 
 	button {
 		color: rgba(0, 0, 0, 0.651);
+	}
+}
+
+.mdc-card {
+	width: 100%;
+	display: flex;
+	cursor: pointer;
+	padding: 8px 16px;
+	border-radius: 4px;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	.mdc-card-wrapper__text-section {
+		display: flex;
+		flex-direction: column;
+		.select-account-card__title {
+			font-family: Roboto, sans-serif;
+			-moz-osx-font-smoothing: grayscale;
+			-webkit-font-smoothing: antialiased;
+			font-size: 1.25rem;
+			line-height: 2rem;
+			font-weight: 500;
+			letter-spacing: 0.0125em;
+			text-decoration: inherit;
+			text-transform: inherit;
+		}
+
+		.select-account-card__subhead {
+			font-family: Roboto, sans-serif;
+			-moz-osx-font-smoothing: grayscale;
+			-webkit-font-smoothing: antialiased;
+			font-size: 0.875rem;
+			line-height: 1.25rem;
+			font-weight: 400;
+			letter-spacing: 0.0178571429em;
+			text-decoration: inherit;
+			text-transform: inherit;
+			opacity: 0.6;
+		}
+	}
+
+	.mdc-icon-button {
+		opacity: 0.6;
 	}
 }

@@ -1,9 +1,19 @@
 <div class="select-account-buttons">
 	<form autocomplete="off" action="/idp/interaction/<%= uid %>/continue" method="post">
-		<button autofocus type="submit" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
-			<span class="mdc-button__ripple"></span>
-			Continue as <%= email %>
-		</button>
+		<div class="mdc-card mdc-card--outlined select-account-card mdc-card__primary-action">
+			<div class="mdc-card-wrapper__text-section">
+				<div class="select-account-card__title"><%= name %></div>
+				<div class="select-account-card__subhead"><%= email %></div>
+			</div>
+			<button
+				type="submit"
+				title="Continue"
+				data-mdc-ripple-is-unbounded="true"
+				class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded"
+			>
+				arrow_forward_ios
+			</button>
+		</div>
 	</form>
 
 	<form autocomplete="off" action="/interaction/<%= uid %>/continue" method="post">

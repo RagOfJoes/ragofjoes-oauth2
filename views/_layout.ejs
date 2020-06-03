@@ -106,6 +106,27 @@
 					hideErrorButton.addEventListener('click', clickHideError);
 				}
 			});
+			const selectAccountCard = document.querySelector('.select-account-card');
+			if (selectAccountCard) {
+				const form = document.querySelector('form');
+				selectAccountCard.addEventListener('click', (event) => {
+					event.preventDefault();
+					form.submit();
+				});
+			}
+			// Prevent Submit onEnter
+			// Make sure this code gets executed after the DOM is loaded.
+			const form = document.querySelector('.fig-altSubmit');
+			const altSubmitButton = document.querySelector('.altSubmit');
+
+			if (form && altSubmitButton) {
+				form.addEventListener('keydown', (event) => {
+					if (event.key === 'Enter') altSubmitButton.value = '';
+				});
+				altSubmitButton.addEventListener('click', (event) => {
+					form.setAttribute('novalidate', true);
+				});
+			}
 		</script>
 	</body>
 </html>
