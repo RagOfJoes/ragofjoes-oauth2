@@ -8,55 +8,43 @@ const schema = new Schema({
 		index: true,
 		type: String,
 		unique: true,
-		required: [true, 'Username must not be empty!']
+		required: [true, 'Username must not be empty!'],
 	},
 	email_verified: {
 		type: Boolean,
-		default: false
+		default: false,
 	},
 	phone: {
-		type: String
+		type: String,
 	},
 	phone_verified: {
 		type: Boolean,
-		default: false
+		default: false,
 	},
 	password: {
 		type: String,
-		required: [true, 'Password must not be empty!']
+		required: [true, 'Password must not be empty!'],
 	},
 	// Meta Data
 	given_name: {
 		type: String,
-		required: [true, 'First Name must not be empty!']
+		required: [true, 'First Name must not be empty!'],
 	},
 	family_name: {
 		type: String,
-		required: [true, 'Last Name must not be empty!']
+		required: [true, 'Last Name must not be empty!'],
 	},
 	middle_name: {
-		type: String
+		type: String,
 	},
 	nickname: {
-		type: String
+		type: String,
 	},
 	birthdate: Date,
-	// Omit: Not yet supported
-	// federation: {
-	// 	id: String,
-	// 	token: String,
-	// 	tokenExpire: Date,
-	// 	rtToken: String,
-	// 	rtTokenExpire: Date
-	// },
-	// isFederated: {
-	// 	type: Boolean,
-	// 	default: false
-	// },
-	logins: [String]
+	logins: [String],
 });
 
-schema.pre('save', function(next) {
+schema.pre('save', function (next) {
 	const user = this;
 
 	if (!user.password || user.password.length < 6) {
@@ -77,47 +65,47 @@ schema.pre('save', function(next) {
 	}
 });
 
-schema.virtual('accountId').get(function() {
+schema.virtual('accountId').get(function () {
 	return this._id.toString();
 });
 
-schema.virtual('id').get(function() {
+schema.virtual('id').get(function () {
 	return this._id.toString();
 });
 
-schema.virtual('name').get(function() {
+schema.virtual('name').get(function () {
 	return this.given_name + ' ' + this.family_name;
 });
 
-schema.virtual('firstname').get(function() {
+schema.virtual('firstname').get(function () {
 	return this.given_name;
 });
 
-schema.virtual('lastname').get(function() {
+schema.virtual('lastname').get(function () {
 	return this.family_name;
 });
 
-schema.virtual('givenname').get(function() {
+schema.virtual('givenname').get(function () {
 	return this.given_name;
 });
 
-schema.virtual('familyname').get(function() {
+schema.virtual('familyname').get(function () {
 	return this.family_name;
 });
 
-schema.virtual('fullname').get(function() {
+schema.virtual('fullname').get(function () {
 	return this.given_name + ' ' + this.family_name;
 });
 
 schema.methods = {
-	toJSON: function() {
+	toJSON: function () {
 		const user = this.toObject();
 		return pick(user, ['_id', 'email']);
-	}
+	},
 };
 
 schema.statics = {
-	createUser: async function(email, password) {
+	createUser: async function (email, password) {
 		try {
 			const userInstance = new UserSchema({ email, password });
 			userInstance.save();
@@ -126,7 +114,7 @@ schema.statics = {
 			throw new Error(e);
 		}
 	},
-	getAccount: function(user) {
+	getAccount: function (user) {
 		const account = {
 			accountId: user.id,
 			/**
@@ -141,14 +129,14 @@ schema.statics = {
 						sub: user.id,
 						name: user.name,
 						given_name: user.given_name,
-						family_name: user.family_name
-					}
+						family_name: user.family_name,
+					},
 				};
-			}
+			},
 		};
 		return account;
 	},
-	findByID: async function(ctx, id) {
+	findByID: async function (ctx, id) {
 		try {
 			const user = await UserSchema.findById(id, '-password');
 			return user;
@@ -156,7 +144,7 @@ schema.statics = {
 			throw new Error(e);
 		}
 	},
-	findAccount: async function(ctx, sub, token) {
+	findAccount: async function (ctx, sub, token) {
 		try {
 			const user = await UserSchema.findById(sub, '-password');
 			if (!user) return undefined;
@@ -166,7 +154,7 @@ schema.statics = {
 			return undefined;
 		}
 	},
-	findByCredentials: async function(email, password) {
+	findByCredentials: async function (email, password) {
 		try {
 			const user = await UserSchema.findOne({ email });
 			if (!user) {
@@ -181,7 +169,7 @@ schema.statics = {
 			throw new Error(e);
 		}
 	},
-	findByLogin: async function(login) {
+	findByLogin: async function (login) {
 		try {
 			const users = await UserSchema.find({ email: login });
 			if (!users || users.length !== 1) throw new Error('User not found');
@@ -191,7 +179,7 @@ schema.statics = {
 		} catch (e) {
 			throw new Error(e);
 		}
-	}
+	},
 };
 
 const UserSchema = model('User', schema);

@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<meta http-equiv="x-ua-compatible" content="ie=edge" />
 		<title><%= title %></title>
+		<link rel="shortcut icon" href="../public/images/favicon.ico" />
 		<!-- Material Design CDN -->
 		<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -62,7 +63,7 @@
 		</div>
 
 		<script text="text/javascript">
-			window.addEventListener('DOMContentLoaded', event => {
+			window.addEventListener('DOMContentLoaded', (event) => {
 				if ('<%= title %>' === 'Sign-out') {
 					// Skip logout prompt
 					const form = document.getElementById('op.logoutForm');
@@ -75,16 +76,16 @@
 					return;
 				}
 
-				if ('<%= title %>' !== 'Sign-in' && '<%= title %>' !== 'Sign-up') return;
-
 				window.mdc.autoInit();
+
+				if ('<%= title %>' !== 'Sign-in' && '<%= title %>' !== 'Sign-up') return;
 
 				const state = {
 					showPassword: true,
-					errorVisible: true
+					errorVisible: true,
 				};
 
-				const clickShowPassword = e => {
+				const clickShowPassword = (e) => {
 					if (state.showPassword) document.querySelector('input[name="password"]').type = 'text';
 					else document.querySelector('input[name="password"]').type = 'password';
 
@@ -97,7 +98,7 @@
 				const hideErrorButton = document.querySelector('.form-error');
 
 				if (hideErrorButton) {
-					const clickHideError = e => {
+					const clickHideError = (e) => {
 						if (!state.errorVisible) return false;
 						hideErrorButton.className += ' error-hide';
 						state.errorVisible = !state.errorVisible;

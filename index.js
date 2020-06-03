@@ -1,14 +1,13 @@
 // Deps
 'use strict';
 process.env.NODE_ENV !== 'production' && require('dotenv/config');
-const cors = require('cors');
 const url = require('url');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const { set } = require('lodash');
 const helmet = require('helmet');
 const { Server } = require('http');
 const express = require('express');
+const cookieParser = require('cookie-parser');
 
 const { Provider } = require('oidc-provider');
 
@@ -27,8 +26,6 @@ if (process.env.NODE_ENV !== 'production') require('./lib/compileSCSS')();
 const app = express();
 app.use(helmet());
 app.use(cookieParser());
-app.use(cors({ origin: '*', credentials: true }));
-// app.use(expressLogger);
 
 // Views setup
 app.use(express.static(__dirname + '/public'));
@@ -60,13 +57,13 @@ let server = Server;
 					url.format({
 						protocol: 'https',
 						host: req.get('host'),
-						pathname: req.originalUrl
+						pathname: req.originalUrl,
 					})
 				);
 			} else {
 				res.status(400).json({
 					error: 'invalid_request',
-					error_description: 'Must be accessed with HTTPS'
+					error_description: 'Must be accessed with HTTPS',
 				});
 			}
 		});
@@ -77,7 +74,7 @@ let server = Server;
 	server = app.listen(PORT, () => {
 		console.log(`OIDC app is listening on port ${PORT}, check its /.well-known/openid-configuration`);
 	});
-})().catch(err => {
+})().catch((err) => {
 	if (server && server.listening) server.close();
 	// console.error(err);
 	process.exitCode = 1;
