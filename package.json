@@ -1,7 +1,7 @@
 {
-	"name": "test_oidc_oauth2",
+	"name": "ragofjoes-oauth2",
 	"version": "0.0.1-alpha",
-	"description": "Testing Identity Provider",
+	"description": "Auth Server for Side Projects",
 	"main": "index.js",
 	"engines": {
 		"node": ">=12.0.0"
@@ -21,15 +21,15 @@
 		"ejs": "^3.0.1",
 		"express": "^4.17.1",
 		"helmet": "^3.21.2",
-		"jose": "^1.21.1",
+		"jose": "^1.27.0",
 		"lodash": "^4.17.15",
 		"mongoose": "^5.8.10",
 		"nanoid": "^2.1.10",
-		"oidc-provider": "^6.20.1"
+		"oidc-provider": "^6.26.0"
 	},
 	"devDependencies": {
 		"dotenv": "^8.2.0",
-		"node-sass": "^4.13.1",
+		"node-sass": "^4.14.1",
 		"nodemon": "^2.0.2"
 	}
 }
