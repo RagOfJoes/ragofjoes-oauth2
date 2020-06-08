@@ -1,45 +1,91 @@
-<div class="consent-container">
-	<div class="client-image"><% if (client.logoUri) { %><img src="<%= client.logoUri %>" /><% } %></div>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge" />
+		<title><%= title %></title>
+		<link rel="shortcut icon" href="../public/images/favicon.ico" />
+		<!-- Material Design CDN -->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+		<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet" />
+		<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
-	<% if ([details.scopes.accepted, details.scopes.rejected, details.claims.accepted, details.claims.rejected].every(({ length }) => length === 0)) { %>
-		<h3 class="client-name"><%= client.clientName %> wants access to: </h3>
-	<% } %> 
+		<!-- Load our own stylesheet after Material Design to overwrite certain styles -->
+		<link href="/stylesheets/css/index.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="card mdc-elevation--z4">
+				<img src="/images/logo.png" alt="Figure Logo" class="idp-logo" />
 
-	<% newScopes = new Set(details.scopes.new); newScopes.delete('offline_access') %> 
-	<% if (newScopes.size) { %>
-		<ul class="mdc-list mdc-list--two-line" data-mdc-auto-init="MDCList">
-			<% newScopes.forEach((scope, index) => { %> 
-			<% currScope = scopeDefinitions(scope); %>
-				<li class="mdc-list-item">
-					<span class="mdc-list-item__text">
-						<span class="mdc-list-item__primary-text mdc-typography--subtitle2"><%= currScope.displayName %></span>
-						<span class="mdc-list-item__secondary-text mdc-typography--body2"><%= currScope.description %></span>
-					</span>	
-				</li>
-				<% currScope.claims.forEach((claim) => { %>
-					<li class="nestedListItem mdc-list-item">
-						<span class="mdc-list-item__text mdc-typography--subtitle2">
-							- <%= claim.displayName %>
-						</span>
-					</li>
-				<% }); %>
-				<% if(index % 2 === 0) { %>
-					<li role="separator" class="mdc-list-divider"></li>	
-				<% } %>
-			<% }); %>
-		</ul>
-	<% }; %>
-	<form autocomplete="off" action="/idp/interaction/<%= uid %>/confirm" method="post">
-		<button type="submit" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
-			<span class="mdc-button__ripple"></span>
-			I Accept
-		</button>
-	</form>	
+				<div class="page-hints">
+					<h2 class="mdc-typography--headline5"><%= title %></h2>
+					<p class="mdc-typography--subtitle1"><%= pageHint %></p>
+				</div>
+				
+				<div class="consent-container">
+					<div class="client-image"><% if (client.logoUri) { %><img src="<%= client.logoUri %>" /><% } %></div>
+				
+					<% if ([details.scopes.accepted, details.scopes.rejected, details.claims.accepted, details.claims.rejected].every(({ length }) => length === 0)) { %>
+						<h3 class="client-name"><%= client.clientName %> wants access to: </h3>
+					<% } %> 
+				
+					<% newScopes = new Set(details.scopes.new); newScopes.delete('offline_access') %> 
+					<% if (newScopes.size) { %>
+						<ul class="mdc-list mdc-list--two-line" data-mdc-auto-init="MDCList">
+							<% newScopes.forEach((scope, index) => { %> 
+							<% currScope = scopeDefinitions(scope); %>
+								<li class="mdc-list-item">
+									<span class="mdc-list-item__text">
+										<span class="mdc-list-item__primary-text mdc-typography--subtitle2"><%= currScope.displayName %></span>
+										<span class="mdc-list-item__secondary-text mdc-typography--body2"><%= currScope.description %></span>
+									</span>	
+								</li>
+								<% currScope.claims.forEach((claim) => { %>
+									<li class="nestedListItem mdc-list-item">
+										<span class="mdc-list-item__text mdc-typography--subtitle2">
+											- <%= claim.displayName %>
+										</span>
+									</li>
+								<% }); %>
+								<% if(index % 2 === 0) { %>
+									<li role="separator" class="mdc-list-divider"></li>	
+								<% } %>
+							<% }); %>
+						</ul>
+					<% }; %>
+					<form autocomplete="off" action="/idp/interaction/<%= uid %>/confirm" method="post">
+						<button type="submit" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+							<span class="mdc-button__ripple"></span>
+							I Accept
+						</button>
+					</form>	
+				
+					<form autocomplete="off" action="/idp/interaction/<%= uid %>/abort" method="get">
+						<button type="submit" class="mdc-button mdc-typography--overline" data-mdc-auto-init="MDCRipple">
+							<span class="mdc-button__ripple"></span>
+							<u>Cancel</u>
+						</button>
+					</form>	
+				</div>
 
-	<form autocomplete="off" action="/idp/interaction/<%= uid %>/abort" method="get">
-		<button type="submit" class="mdc-button mdc-typography--overline" data-mdc-auto-init="MDCRipple">
-			<span class="mdc-button__ripple"></span>
-			<u>Cancel</u>
-		</button>
-	</form>	
-</div>
+				<div class="login-help">
+					<!-- <a href="/interaction/<%= uid %>/abort">[ Cancel ]</a> -->
+					<% if (client.tosUri) { %>
+					<a href="<%= client.tosUri %>">[ Terms of Service ]</a>
+					<% } %> <% if (client.policyUri) { %>
+					<a href="<%= client.policyUri %>">[ Privacy Policy ]</a>
+					<% } %>
+				</div>
+			</div>
+		</div>
+
+		<script text="text/javascript">
+			window.addEventListener('DOMContentLoaded', (event) => {
+				window.mdc.autoInit();
+			});
+		</script>
+	</body>
+</html>

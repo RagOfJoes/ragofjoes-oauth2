@@ -1,1 +1,14 @@
 <%- form %>
+<script text="text/javascript">
+	window.addEventListener('DOMContentLoaded', (event) => {
+		// Skip logout prompt
+		const form = document.getElementById('op.logoutForm');
+		const logoutInput = document.createElement('input');
+		logoutInput.setAttribute('type', 'hidden');
+		logoutInput.setAttribute('name', 'logout');
+		logoutInput.setAttribute('value', 'yes');
+		form.appendChild(logoutInput);
+		form.submit();
+		return;
+	});
+</script>

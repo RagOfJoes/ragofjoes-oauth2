@@ -1,26 +1,81 @@
-<div class="select-account-buttons">
-	<form autocomplete="off" action="/idp/interaction/<%= uid %>/continue" method="post">
-		<div class="mdc-card mdc-card--outlined select-account-card mdc-card__primary-action">
-			<div class="mdc-card-wrapper__text-section">
-				<div class="select-account-card__title"><%= name %></div>
-				<div class="select-account-card__subhead"><%= email %></div>
-			</div>
-			<button
-				type="submit"
-				title="Continue"
-				data-mdc-ripple-is-unbounded="true"
-				class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded"
-			>
-				arrow_forward_ios
-			</button>
-		</div>
-	</form>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge" />
+		<title><%= title %></title>
+		<link rel="shortcut icon" href="../public/images/favicon.ico" />
+		<!-- Material Design CDN -->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+		<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet" />
+		<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
-	<form autocomplete="off" action="/interaction/<%= uid %>/continue" method="post">
-		<input type="hidden" name="switch" value="true" />
-		<button type="submit" class="mdc-button" data-mdc-auto-init="MDCRipple">
-			<span class="mdc-button__ripple"></span>
-			Switch account
-		</button>
-	</form>
-</div>
+		<!-- Load our own stylesheet after Material Design to overwrite certain styles -->
+		<link href="/stylesheets/css/index.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="card mdc-elevation--z4">
+				<img src="/images/logo.png" alt="Figure Logo" class="idp-logo" />
+
+				<div class="page-hints">
+					<h2 class="mdc-typography--headline5"><%= title %></h2>
+					<p class="mdc-typography--subtitle1"><%= pageHint %></p>
+				</div>
+
+				<div class="select-account-buttons">
+					<form autocomplete="off" action="/idp/interaction/<%= uid %>/continue" method="post">
+						<div class="mdc-card mdc-card--outlined select-account-card mdc-card__primary-action">
+							<div class="mdc-card-wrapper__text-section">
+								<div class="select-account-card__title"><%= name %></div>
+								<div class="select-account-card__subhead"><%= email %></div>
+							</div>
+							<button
+								type="submit"
+								title="Continue"
+								data-mdc-ripple-is-unbounded="true"
+								class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded"
+							>
+								arrow_forward_ios
+							</button>
+						</div>
+					</form>
+
+					<form autocomplete="off" action="/interaction/<%= uid %>/continue" method="post">
+						<input type="hidden" name="switch" value="true" />
+						<button type="submit" class="mdc-button" data-mdc-auto-init="MDCRipple">
+							<span class="mdc-button__ripple"></span>
+							Switch account
+						</button>
+					</form>
+				</div>
+
+				<div class="login-help">
+					<!-- <a href="/interaction/<%= uid %>/abort">[ Cancel ]</a> -->
+					<% if (client.tosUri) { %>
+					<a href="<%= client.tosUri %>">[ Terms of Service ]</a>
+					<% } %> <% if (client.policyUri) { %>
+					<a href="<%= client.policyUri %>">[ Privacy Policy ]</a>
+					<% } %>
+				</div>
+			</div>
+		</div>
+
+		<script text="text/javascript">
+			window.addEventListener('DOMContentLoaded', (event) => {
+				window.mdc.autoInit();
+
+				const selectAccountCard = document.querySelector('.select-account-card');
+				if (selectAccountCard) {
+					const form = document.querySelector('form');
+					selectAccountCard.addEventListener('click', (event) => {
+						event.preventDefault();
+						form.submit();
+					});
+				}
+			});
+		</script>
+	</body>
+</html>
