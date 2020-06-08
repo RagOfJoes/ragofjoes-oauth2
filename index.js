@@ -70,7 +70,7 @@ let server = Server;
 	}
 
 	interactionsRoutes(app, provider);
-	app.use('/idp', provider.callback);
+	app.use(provider.callback);
 	server = app.listen(PORT, () => {
 		console.log(`OIDC app is listening on port ${PORT}, check its /.well-known/openid-configuration`);
 	});
