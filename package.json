@@ -7,9 +7,9 @@
 		"node": ">=12.0.0"
 	},
 	"scripts": {
-		"watch:server": "nodemon index.js",
-		"watch:devServer": "nodemon index.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"dev": "nodemon index.js",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node lib/generateKeys.js && node lib/compileSCSS.js && node index.js"
 	},
 	"author": "Victor Ragojos",
 	"license": "ISC",
