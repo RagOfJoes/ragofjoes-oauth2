@@ -54,14 +54,14 @@
 							<% }); %>
 						</ul>
 					<% }; %>
-					<form autocomplete="off" action="/idp/interaction/<%= uid %>/confirm" method="post">
+					<form autocomplete="off" action="/interaction/<%= uid %>/confirm" method="post">
 						<button type="submit" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
 							<span class="mdc-button__ripple"></span>
 							I Accept
 						</button>
 					</form>	
 				
-					<form autocomplete="off" action="/idp/interaction/<%= uid %>/abort" method="get">
+					<form autocomplete="off" action="/interaction/<%= uid %>/abort" method="get">
 						<button type="submit" class="mdc-button mdc-typography--overline" data-mdc-auto-init="MDCRipple">
 							<span class="mdc-button__ripple"></span>
 							<u>Cancel</u>
@@ -70,7 +70,6 @@
 				</div>
 
 				<div class="login-help">
-					<!-- <a href="/interaction/<%= uid %>/abort">[ Cancel ]</a> -->
 					<% if (client.tosUri) { %>
 					<a href="<%= client.tosUri %>">[ Terms of Service ]</a>
 					<% } %> <% if (client.policyUri) { %>

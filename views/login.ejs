@@ -23,7 +23,7 @@
 					<p class="mdc-typography--subtitle1"><%= pageHint %></p>
 				</div>
 
-				<form class="login-form" autocomplete="off" action="/idp/interaction/<%= uid %>/login" method="post">
+				<form class="login-form" autocomplete="off" action="/interaction/<%= uid %>/login" method="post">
 					<% if (flash) { %>
 					<div class="form-error login-error mdc-elevation--z4 mdc-ripple-surface" data-mdc-auto-init="MDCRipple">
 						<i class="material-icons mdc-icon-button__icon">error</i>
@@ -100,7 +100,6 @@
 				</form>
 
 				<div class="login-help">
-					<!-- <a href="/interaction/<%= uid %>/abort">[ Cancel ]</a> -->
 					<% if (client.tosUri) { %>
 					<a href="<%= client.tosUri %>">[ Terms of Service ]</a>
 					<% } %> <% if (client.policyUri) { %>

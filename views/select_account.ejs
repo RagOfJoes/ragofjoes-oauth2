@@ -24,7 +24,7 @@
 				</div>
 
 				<div class="select-account-buttons">
-					<form autocomplete="off" action="/idp/interaction/<%= uid %>/continue" method="post">
+					<form autocomplete="off" action="/interaction/<%= uid %>/continue" method="post">
 						<div class="mdc-card mdc-card--outlined select-account-card mdc-card__primary-action">
 							<div class="mdc-card-wrapper__text-section">
 								<div class="select-account-card__title"><%= name %></div>
@@ -51,7 +51,6 @@
 				</div>
 
 				<div class="login-help">
-					<!-- <a href="/interaction/<%= uid %>/abort">[ Cancel ]</a> -->
 					<% if (client.tosUri) { %>
 					<a href="<%= client.tosUri %>">[ Terms of Service ]</a>
 					<% } %> <% if (client.policyUri) { %>
