@@ -9,8 +9,8 @@
 	"scripts": {
 		"dev": "razzle start",
 		"build": "razzle build",
-		"test": "razzle test --env=jsdom",
-		"start": "set NODE_ENV=production && node build/server.js"
+		"start": "node build/server.js",
+		"test": "razzle test --env=jsdom"
 	},
 	"author": "Victor Ragojos",
 	"license": "ISC",

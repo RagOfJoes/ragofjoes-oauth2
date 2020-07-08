@@ -29,9 +29,12 @@ const server = express();
 	// Setup express
 	server.disable('x-powered-by').use(helmet()).use(cookieParser()).use(express.static(process.env.RAZZLE_PUBLIC_DIR));
 
-	const { PORT = 3000, ISSUER = `http://localhost:${PORT}` } = process.env;
+	const { PORT, ISSUER } = process.env;
 
-	const provider = new Provider(ISSUER, { adapter: MongoAdapter(client.connection.db), ...oidcConfig });
+	const provider = new Provider(ISSUER || `http://localhost:${PORT}`, {
+		adapter: MongoAdapter(client.connection.db),
+		...oidcConfig,
+	});
 
 	// View Routes
 	views(server, assets, provider);
