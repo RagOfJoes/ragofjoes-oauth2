@@ -1,35 +1,46 @@
 {
 	"name": "ragofjoes-oauth2",
-	"version": "0.0.1-alpha",
+	"version": "1.0.0",
 	"description": "Auth Server for Side Projects",
 	"main": "index.js",
 	"engines": {
 		"node": ">=12.0.0"
 	},
 	"scripts": {
-		"dev": "nodemon index.js",
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "node lib/generateKeys.js && node lib/compileSCSS.js && node index.js"
+		"start": "razzle start",
+		"build": "razzle build",
+		"test": "razzle test --env=jsdom",
+		"start:prod": "NODE_ENV=production node build/server.js"
 	},
 	"author": "Victor Ragojos",
 	"license": "ISC",
 	"dependencies": {
+		"@material-ui/core": "^4.10.2",
+		"@material-ui/icons": "^4.9.1",
 		"bcryptjs": "^2.4.3",
 		"body-parser": "^1.19.0",
 		"cookie-parser": "^1.4.4",
 		"cors": "^2.8.5",
-		"ejs": "^3.0.1",
 		"express": "^4.17.1",
+		"formik": "^2.1.4",
+		"framer-motion": "^1.11.1",
 		"helmet": "^3.21.2",
 		"jose": "^1.27.0",
-		"lodash": "^4.17.15",
+		"lodash": "^4.17.18",
 		"mongoose": "^5.8.10",
 		"nanoid": "^2.1.10",
 		"node-sass": "^4.14.1",
-		"oidc-provider": "^6.26.0"
+		"oidc-provider": "^6.26.0",
+		"prop-types": "^15.7.2",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"react-helmet": "^6.1.0",
+		"react-router-dom": "^5.2.0",
+		"serialize-javascript": "^4.0.0"
 	},
 	"devDependencies": {
 		"dotenv": "^8.2.0",
-		"nodemon": "^2.0.2"
+		"nodemon": "^2.0.2",
+		"razzle": "^3.1.5"
 	}
 }
