@@ -2,13 +2,11 @@
 
 ## Roadmap
 
--   Identity Management Dashboard on NextJS
-    -   Features:
-    -   Profile Management
-    -   Session Management
-    -   Password management
-    -   Token Management
-    -   Client Creation/management
+-   Session(s) Management
+-   Password management w/ Email Confirmation
+-   Token Management
+-   Client Creation/management (Limit users that can access)
+
 -   2FA support
 -   Email Verification
 -   Federation
