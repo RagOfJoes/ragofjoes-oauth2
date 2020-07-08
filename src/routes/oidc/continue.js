@@ -1,12 +1,12 @@
-const { strict: assert } = require('assert');
+import { strict } from 'assert';
 
-module.exports = async (provider, req, res, next) => {
+export default async (provider, req, res, next) => {
 	try {
 		const interaction = await provider.interactionDetails(req, res);
 		const {
 			prompt: { name },
 		} = interaction;
-		assert.equal(name, 'select_account');
+		strict.equal(name, 'select_account');
 
 		if (req.body.switch) {
 			// If User chooses to Switch Account

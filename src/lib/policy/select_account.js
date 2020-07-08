@@ -1,16 +1,14 @@
-const {
-	interactionPolicy: { Check, Prompt },
-} = require('oidc-provider');
+import { interactionPolicy } from 'oidc-provider';
 
-module.exports = (interactions) => {
+export default  (interactions) => {
 	// create a requestable prompt with no implicit checks
-	const selectAccount = new Prompt({
+	const selectAccount = new interactionPolicy.Prompt({
 		name: 'select_account',
 		requestable: true,
 	});
 
 	selectAccount.checks.add(
-		new Check('select_account_prompt', 'Select Account prompt was not resolved', '', (ctx) => {
+		new interactionPolicy.Check('select_account_prompt', 'Select Account prompt was not resolved', '', (ctx) => {
 			const { oidc } = ctx;
 
 			if (oidc.prompts.has('select_account') && oidc.promptPending('select_account')) {

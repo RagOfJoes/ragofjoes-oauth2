@@ -1,11 +1,11 @@
-const { strict: assert } = require('assert');
+import { strict } from 'assert';
 
-module.exports = async (provider, req, res, next) => {
+export default async (provider, req, res, next) => {
 	try {
 		const {
-			prompt: { name }
+			prompt: { name },
 		} = await provider.interactionDetails(req, res);
-		assert.equal(name, 'consent');
+		strict.equal(name, 'consent');
 		const consent = {};
 
 		// any scopes you do not wish to grant go in here

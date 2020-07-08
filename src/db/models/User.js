@@ -1,8 +1,7 @@
-const bcrypt = require('bcryptjs');
-const { pick } = require('lodash');
-const { Schema, model } = require('mongoose');
+import bcrypt from 'bcryptjs';
+import mongoose from 'mongoose';
 
-const schema = new Schema({
+const UserSchema = new mongoose.Schema({
 	email: {
 		trim: true,
 		index: true,
@@ -44,70 +43,73 @@ const schema = new Schema({
 	logins: [String],
 });
 
-schema.pre('save', function (next) {
+UserSchema.pre('save', async function (next) {
 	const user = this;
-
-	if (!user.password || user.password.length < 6) {
-		throw new Error('Password field is missing');
-	}
+	if (!user.password) throw new Error('Password field is missing');
 
 	if (user.isModified('password')) {
-		bcrypt.genSalt(10, (err, salt) => {
-			bcrypt.hash(user.password, salt, (err, hash) => {
-				if (!err) {
-					user.password = hash;
-				}
-				next();
-			});
-		});
-	} else {
-		next();
+		if (user.password.length < 6) throw new Error('Password must be longer than 6 characters');
+
+		if (user.password.length > 24) throw new Error('Password must not be longer than 24 characters');
+
+		try {
+			const salt = await bcrypt.genSalt(10);
+			const hash = await bcrypt.hash(user.password, salt);
+			user.password = hash;
+		} catch (e) {}
 	}
+
+	next();
 });
 
-schema.virtual('accountId').get(function () {
+UserSchema.virtual('accountId').get(function () {
 	return this._id.toString();
 });
 
-schema.virtual('id').get(function () {
+UserSchema.virtual('id').get(function () {
 	return this._id.toString();
 });
 
-schema.virtual('name').get(function () {
+UserSchema.virtual('name').get(function () {
 	return this.given_name + ' ' + this.family_name;
 });
 
-schema.virtual('firstname').get(function () {
+UserSchema.virtual('firstname').get(function () {
 	return this.given_name;
 });
 
-schema.virtual('lastname').get(function () {
+UserSchema.virtual('lastname').get(function () {
 	return this.family_name;
 });
 
-schema.virtual('givenname').get(function () {
+UserSchema.virtual('givenname').get(function () {
 	return this.given_name;
 });
 
-schema.virtual('familyname').get(function () {
+UserSchema.virtual('familyname').get(function () {
 	return this.family_name;
 });
 
-schema.virtual('fullname').get(function () {
+UserSchema.virtual('fullname').get(function () {
 	return this.given_name + ' ' + this.family_name;
 });
 
-schema.methods = {
-	toJSON: function () {
-		const user = this.toObject();
-		return pick(user, ['_id', 'email']);
+UserSchema.methods = {
+	validPassword: async function (pass) {
+		try {
+			//creates a method for user object to validate pw
+			return bcrypt.compare(pass, this.password); //compares unhashed user input pw to stored hashed pw
+		} catch (e) {
+			console.log(e);
+		}
+		return false;
 	},
 };
 
-schema.statics = {
+UserSchema.statics = {
 	createUser: async function (email, password) {
 		try {
-			const userInstance = new UserSchema({ email, password });
+			const userInstance = new UserModel({ email, password });
 			userInstance.save();
 			return userInstance.toJSON();
 		} catch (e) {
@@ -138,7 +140,7 @@ schema.statics = {
 	},
 	findByID: async function (ctx, id) {
 		try {
-			const user = await UserSchema.findById(id, '-password');
+			const user = await UserModel.findById(id, '-password');
 			return user;
 		} catch (e) {
 			throw new Error(e);
@@ -146,9 +148,9 @@ schema.statics = {
 	},
 	findAccount: async function (ctx, sub, token) {
 		try {
-			const user = await UserSchema.findById(sub, '-password');
+			const user = await UserModel.findById(sub, '-password');
 			if (!user) return undefined;
-			const account = UserSchema.getAccount(user);
+			const account = UserModel.getAccount(user);
 			return account;
 		} catch (e) {
 			return undefined;
@@ -156,7 +158,7 @@ schema.statics = {
 	},
 	findByCredentials: async function (email, password) {
 		try {
-			const user = await UserSchema.findOne({ email });
+			const user = await UserModel.findOne({ email });
 			if (!user) {
 				throw new Error('Credentials not valid');
 			}
@@ -171,10 +173,10 @@ schema.statics = {
 	},
 	findByLogin: async function (login) {
 		try {
-			const users = await UserSchema.find({ email: login });
+			const users = await UserModel.find({ email: login });
 			if (!users || users.length !== 1) throw new Error('User not found');
 			const user = users[0];
-			const account = UserSchema.getAccount(user);
+			const account = UserModel.getAccount(user);
 			return account;
 		} catch (e) {
 			throw new Error(e);
@@ -182,6 +184,6 @@ schema.statics = {
 	},
 };
 
-const UserSchema = model('User', schema);
+const UserModel = mongoose.model('User', UserSchema);
 
-module.exports = UserSchema;
+export default UserModel;

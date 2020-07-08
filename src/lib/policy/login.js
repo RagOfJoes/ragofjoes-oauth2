@@ -1,16 +1,14 @@
-const {
-	interactionPolicy: { Check }
-} = require('oidc-provider');
-const UserModel = require('../../db/models/User');
+import UserModel from 'db/models/User';
+import { interactionPolicy } from 'oidc-provider';
 
 // Update base login policy to allow for sign_up process
-module.exports = interactions => {
+export default (interactions) => {
 	interactions.get('login').checks.add(
-		new Check(
+		new interactionPolicy.Check(
 			'account_invalid',
 			'End-User authentication is required',
 			'login_required',
-			async ctx => {
+			async (ctx) => {
 				const { oidc } = ctx;
 				try {
 					if (!oidc.session.accountId()) return true;
