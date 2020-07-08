@@ -1,18 +1,11 @@
 import http from 'http';
+import express from 'express';
 
 let app = require('./server').default;
 
 const server = http.createServer(app);
 
 let currentApp = app;
-
-server
-	.listen(process.env.PORT, () => {
-		console.log('🚀 started on Port: ' + process.env.PORT);
-	})
-	.on('error', (error) => {
-		console.log(error);
-	});
 
 if (module.hot) {
 	console.log('✅  Server-side HMR Enabled!');
@@ -30,3 +23,13 @@ if (module.hot) {
 		}
 	});
 }
+
+export default express()
+	.use((req, res) => app.handle(req, res))
+	.listen(process.env.PORT || 5000, function (err) {
+		if (err) {
+			console.error(err);
+			return;
+		}
+		console.log('🚀 started on Port: ' + process.env.PORT || 5000);
+	});
