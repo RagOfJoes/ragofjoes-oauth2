@@ -1,3 +1,4 @@
+import set from 'lodash/set';
 import oidc from '../routes/oidc';
 import oidcConfig from './config';
 import { Express } from 'express';
@@ -11,6 +12,7 @@ import { Provider } from 'oidc-provider';
  * @param {Provider} providr
  */
 export default (server, assets, provider) => {
+	console.log(process.env);
 	if (process.env.NODE_ENV === 'production') {
 		// logger.debug('Production');
 		app.enable('trust proxy');

@@ -6,28 +6,28 @@ import UserModel from 'db/models/User';
 import { getLongCookies, getShortCookies } from './cookies';
 
 export default {
-	clients: [
-		// Example Client Registration Structure
-		{
-			key: 'test',
-			// Client's allowed scopes
-			scope: 'email profile openid',
-			// Confidential: Client credentials
-			client_id: 'id',
-			client_secret: 'secret',
-			client_name: 'Test Client',
-			/**
-			 * When authenticating/authorizing use these
-			 * backchannel redirects to complete auth flow
-			 */
-			token_endpoint_auth_method: 'client_secret_basic',
-			redirect_uris: ['http://localhost:8081/api/callback'],
-			// Allowed response_types
-			response_types: ['code'],
-			// Allowed grant types
-			grant_types: ['authorization_code', 'refresh_token'],
-		},
-	],
+	// clients: [
+	// 	// Example Client Registration Structure
+	// 	{
+	// 		key: 'test',
+	// 		// Client's allowed scopes
+	// 		scope: 'email profile openid',
+	// 		// Confidential: Client credentials
+	// 		client_id: 'id',
+	// 		client_secret: 'secret',
+	// 		client_name: 'Test Client',
+	// 		/**
+	// 		 * When authenticating/authorizing use these
+	// 		 * backchannel redirects to complete auth flow
+	// 		 */
+	// 		token_endpoint_auth_method: 'client_secret_basic',
+	// 		redirect_uris: ['http://localhost:8081/api/callback'],
+	// 		// Allowed response_types
+	// 		response_types: ['code'],
+	// 		// Allowed grant types
+	// 		grant_types: ['authorization_code', 'refresh_token'],
+	// 	},
+	// ],
 	renderError: async (ctx, out, err) => {
 		const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 		const { req, res } = ctx;
@@ -152,12 +152,12 @@ export default {
 		DeviceCode: 10 * 60, // 10 minutes in seconds
 		AuthorizationCode: 10 * 60, // 10 minutes in seconds
 		// For Production
-		// AccessToken: 60 * 60 * 24 * 14, // 14 days in seconds
-		// RefreshToken: 60 * 60 * 24 * 60 // 60 days in seconds
+		AccessToken: 60 * 60 * 24 * 14, // 14 days in seconds
+		RefreshToken: 60 * 60 * 24 * 60, // 60 days in seconds
 		// For Dev
-		AccessToken:
-			process.env.NODE_ENV === 'development'
-				? 60 * 30 // 30 min :
-				: 60 * 60 * 24 * 14, // 2 weeks,
+		// AccessToken:
+		// 	process.env.NODE_ENV === 'development'
+		// 		? 60 * 30 // 30 min :
+		// 		: 60 * 60 * 24 * 14, // 2 weeks,
 	},
 };
