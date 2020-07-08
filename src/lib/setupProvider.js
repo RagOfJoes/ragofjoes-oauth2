@@ -15,12 +15,12 @@ export default (server, assets, provider) => {
 	try {
 		if (process.env.NODE_ENV === 'production') {
 			// logger.debug('Production');
-			app.enable('trust proxy');
+			server.enable('trust proxy');
 			provider.proxy = true;
 			set(oidcConfig, 'cookies.short.secure', true);
 			set(oidcConfig, 'cookies.long.secure', true);
 
-			app.use((req, res, next) => {
+			server.use((req, res, next) => {
 				if (req.secure) {
 					next();
 				} else if (req.method === 'GET' || req.method === 'HEAD') {
