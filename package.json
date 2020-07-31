@@ -26,7 +26,7 @@
 		"framer-motion": "^1.11.1",
 		"helmet": "^3.21.2",
 		"jose": "^1.27.0",
-		"lodash": "^4.17.18",
+		"lodash": "^4.17.19",
 		"mongoose": "^5.8.10",
 		"nanoid": "^2.1.10",
 		"node-sass": "^4.14.1",
@@ -42,6 +42,6 @@
 	"devDependencies": {
 		"dotenv": "^8.2.0",
 		"nodemon": "^2.0.2",
-		"razzle": "^3.1.5"
+		"razzle": "^3.1.6"
 	}
 }
