@@ -3,7 +3,12 @@ const path = require('path');
 const razzleHeroku = require('razzle-heroku');
 
 module.exports = {
-	modify: (config, { target, dev }, webpack) => {
+	modifyWebpackConfig: (opts) => {
+		const dev = opts.env.dev;
+		const target = opts.env.target;
+		let config = opts.webpackConfig;
+		const webpack = opts.webpackObject;
+
 		config = razzleHeroku(config, { target, dev }, webpack);
 		config.resolve.alias = {
 			src: path.resolve(__dirname, 'src'),

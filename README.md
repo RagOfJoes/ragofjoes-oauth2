@@ -1,11 +1,9 @@
-# OAUTH2.0/OIDC Server for Side Projects
+# Auth Server for Side Projects
 
 ## Roadmap
 
 -   Session(s) Management
 -   Password management w/ Email Confirmation
--   Token Management
--   Client Creation/management (Limit users that can access)
 
 -   2FA support
 -   Email Verification
