@@ -112,3 +112,4 @@ dist
 
 # Razzle
 build
+.DS_Store
