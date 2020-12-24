@@ -14,9 +14,6 @@ const useStyles = makeStyles(
 		content: {
 			textAlign: 'center',
 		},
-		message: {
-			textTransform: 'capitalize',
-		},
 	}),
 	{ name: 'Error' }
 );
@@ -35,8 +32,8 @@ export default memo(({ message }) => {
 					An error has occured!
 				</Typography>
 
-				<Typography variant="subtitle2" className={styles.message}>
-					{message || 'Internal Server Error. Please try again later!'}
+				<Typography variant="subtitle2">
+					{message || 'Oops something went wrong. Please try again later!'}
 				</Typography>
 			</CardContent>
 		</Card>
