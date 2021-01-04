@@ -3,9 +3,6 @@
 	"version": "1.1.0",
 	"description": "Auth Server for Side Projects",
 	"main": "index.js",
-	"engines": {
-		"node": ">=12.0.0"
-	},
 	"scripts": {
 		"start": "razzle start",
 		"build": "razzle build",
@@ -34,7 +31,6 @@
 		"node-sass": "^5.0.0",
 		"oidc-provider": "^6.29.8",
 		"prop-types": "^15.7.2",
-		"razzle": "^4.0.0-canary.9",
 		"razzle-heroku": "^3.0.0",
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
@@ -43,6 +39,7 @@
 		"serialize-javascript": "^5.0.1"
 	},
 	"devDependencies": {
-		"dotenv": "^8.2.0"
+		"dotenv": "^8.2.0",
+		"razzle": "^4.0.0-canary.9"
 	}
 }
