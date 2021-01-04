@@ -1,5 +1,5 @@
 import { strict } from 'assert';
-import UserModel from 'db/models/User';
+import UserModel from 'db/models/user';
 
 export default async (provider, req, res, next) => {
 	try {
@@ -39,12 +39,14 @@ export default async (provider, req, res, next) => {
 					await interaction.save();
 				}
 			} catch (e) {
-				// If There was an error then inform user
+				// If there was an error then inform user
 				result = { flash: 'Email is unavailable!' };
 			}
 		}
 
-		await provider.interactionFinished(req, res, result, { mergeWithLastSubmission: false });
+		await provider.interactionFinished(req, res, result, {
+			mergeWithLastSubmission: false,
+		});
 	} catch (err) {
 		next(err);
 	}

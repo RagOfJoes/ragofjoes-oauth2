@@ -22,7 +22,9 @@ export default async (provider, req, res, next) => {
 		consent.replace = false;
 
 		const result = { consent };
-		await provider.interactionFinished(req, res, result, { mergeWithLastSubmission: true });
+		await provider.interactionFinished(req, res, result, {
+			mergeWithLastSubmission: true,
+		});
 	} catch (err) {
 		next(err);
 	}

@@ -1,5 +1,5 @@
 import { strict } from 'assert';
-import UserModel from 'db/models/User';
+import UserModel from 'db/models/user';
 
 export default async (provider, req, res, next) => {
 	try {
@@ -7,10 +7,11 @@ export default async (provider, req, res, next) => {
 		const { prompt } = interaction;
 		strict.equal(prompt.name, 'login');
 
-		let result;
+		let result = { flash: 'Invalid Credentials!', sign_up: {} };
 		try {
 			if (req.body.new_user) {
 				// If User decides to create a new User
+				result = {};
 				interaction.params.prompt = 'sign_up';
 				await interaction.save();
 			} else {
@@ -23,23 +24,27 @@ export default async (provider, req, res, next) => {
 						flash: 'You must provide Password!',
 					};
 				} else {
-					const account = await UserModel.findByCredentials(req.body.login, req.body.password);
-
-					// Skip previous interaction steps and fill in required login fields to skip Prompt checks
-					result = {
-						sign_up: {},
-						login: {
-							account: account.accountId,
-							remember: req.body.remember_me,
-						},
-						select_account: {},
-					};
+					const account = await UserModel.findByCredentials(
+						req.body.login,
+						req.body.password
+					);
+					if (account && account.id) {
+						// Skip previous interaction steps and fill in required login fields to skip Prompt checks
+						result = {
+							sign_up: {},
+							login: {
+								account: account.id,
+								remember: req.body.remember_me,
+							},
+							select_account: {},
+						};
+					}
 				}
 			}
-		} catch (e) {
-			result = { flash: 'Invalid Credentials!' };
-		}
-		await provider.interactionFinished(req, res, result, { mergeWithLastSubmission: false });
+		} catch (e) {}
+		await provider.interactionFinished(req, res, result, {
+			mergeWithLastSubmission: false,
+		});
 	} catch (err) {
 		next(err);
 	}

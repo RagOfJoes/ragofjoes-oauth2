@@ -22,7 +22,9 @@ export default async (provider, req, res, next) => {
 		}
 
 		const result = { select_account: {} };
-		await provider.interactionFinished(req, res, result, { mergeWithLastSubmission: false });
+		await provider.interactionFinished(req, res, result, {
+			mergeWithLastSubmission: false,
+		});
 	} catch (err) {
 		next(err);
 	}
