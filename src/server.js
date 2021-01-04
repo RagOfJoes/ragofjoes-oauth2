@@ -24,18 +24,9 @@ const main = async () => {
 		console.error('MongoDB Failed to Connect!', e);
 	}
 
-	// Setup express
-	const fixedHelmet =
-		process.env.NODE_ENV === 'production'
-			? helmet()
-			: helmet({
-					contentSecurityPolicy: {
-						reportOnly: true,
-					},
-			  });
 	server
 		.disable('x-powered-by')
-		.use(fixedHelmet)
+		.use(helmet())
 		.use(cookieParser())
 		.use(express.static(process.env.RAZZLE_PUBLIC_DIR))
 		.use(
