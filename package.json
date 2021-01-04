@@ -4,16 +4,14 @@
 	"description": "Auth Server for Side Projects",
 	"main": "index.js",
 	"engines": {
-		"node": "15.2.1",
-		"npm": "7.0.10"
+		"node": ">=12.0.0"
 	},
 	"scripts": {
 		"start": "razzle start",
 		"build": "razzle build",
 		"test": "razzle test --env=jsdom",
 		"build:keys": "node ./src/lib/generateKeys.js",
-		"start:prod": "NODE_ENV=production node build/server.js",
-		"heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev"
+		"start:prod": "NODE_ENV=production node build/server.js"
 	},
 	"author": "Victor Ragojos",
 	"license": "ISC",
