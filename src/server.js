@@ -25,17 +25,17 @@ const main = async () => {
 	}
 
 	// Setup express
-	const helmetOpts =
+	const fixedHelmet =
 		process.env.NODE_ENV === 'production'
-			? undefined
-			: {
+			? helmet()
+			: helmet({
 					contentSecurityPolicy: {
 						reportOnly: true,
 					},
-			  };
+			  });
 	server
 		.disable('x-powered-by')
-		.use(helmet(helmetOpts))
+		.use(fixedHelmet)
 		.use(cookieParser())
 		.use(express.static(process.env.RAZZLE_PUBLIC_DIR))
 		.use(
