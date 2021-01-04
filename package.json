@@ -3,6 +3,10 @@
 	"version": "1.1.0",
 	"description": "Auth Server for Side Projects",
 	"main": "index.js",
+	"engines": {
+		"node": "15.2.1",
+		"npm": "7.0.10"
+	},
 	"scripts": {
 		"start": "razzle start",
 		"build": "razzle build",
