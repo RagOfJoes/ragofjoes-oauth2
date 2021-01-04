@@ -1,4 +1,4 @@
-import UserModel from 'db/models/User';
+import UserModel from 'db/models/user';
 import { interactionPolicy } from 'oidc-provider';
 
 // Update base login policy to allow for sign_up process

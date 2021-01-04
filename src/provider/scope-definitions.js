@@ -3,7 +3,7 @@ import EmailIcon from '@material-ui/icons/Email';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import PersonIcon from '@material-ui/icons/Person';
 
-export default (scope) => {
+const scopeDefinitions = (scope) => {
 	switch (scope) {
 		case 'openid':
 			return {
@@ -31,9 +31,12 @@ export default (scope) => {
 					{ displayName: 'Email', description: 'View your Email address.' },
 					{
 						displayName: 'Email Verified',
-						description: "Check whether you've verified your Email address or not.(Still a W.I.P)",
+						description:
+							"Check whether you've verified your Email address or not.(Still a W.I.P)",
 					},
 				],
 			};
 	}
 };
+
+export default scopeDefinitions;
