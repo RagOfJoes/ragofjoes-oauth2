@@ -1,11 +1,11 @@
-import App from './App';
 import React from 'react';
-import theme from 'lib/theme';
 import { hydrate } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import InteractionProvider from './lib/Providers/InteractionProvider';
+import App from './App';
+import theme from 'lib/theme';
+import InteractionProvider from './components/Providers/InteractionProvider';
 
 const getInitData = () => {
 	try {
@@ -24,7 +24,7 @@ hydrate(
 			</InteractionProvider>
 		</ThemeProvider>
 	</BrowserRouter>,
-	document.getElementById('root'),
+	document.getElementById('mount-node'),
 	() => {
 		try {
 			// [ReHydratation](https://github.com/cssinjs/jss/blob/master/docs/ssr.md)
