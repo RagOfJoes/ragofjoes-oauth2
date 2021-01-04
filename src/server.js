@@ -1,15 +1,13 @@
 import helmet from 'helmet';
+import morgan from 'morgan';
 import express from 'express';
 import mongoose from 'mongoose';
-import oidcConfig from 'lib/config';
-import views from 'src/routes/views';
-import MongoAdapter from 'lib/adapter';
-import { Provider } from 'oidc-provider';
 import cookieParser from 'cookie-parser';
-import setupProvider from 'lib/setupProvider';
+import setupRoutes from 'src/routes';
+import setupProvider from 'provider/setup';
 
 const server = express();
-(async () => {
+const main = async () => {
 	let client;
 	const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
@@ -23,25 +21,33 @@ const server = express();
 		mongoose.Promise = global.Promise;
 		console.log('MongoDB Successfully Connected');
 	} catch (e) {
-		console.log('MongoDB Failed to Connect!', e);
+		console.error('MongoDB Failed to Connect!', e);
 	}
 
 	// Setup express
-	server.disable('x-powered-by').use(helmet()).use(cookieParser()).use(express.static(process.env.RAZZLE_PUBLIC_DIR));
+	const helmetOpts =
+		process.env.NODE_ENV === 'production'
+			? undefined
+			: {
+					contentSecurityPolicy: {
+						reportOnly: true,
+					},
+			  };
+	server
+		.disable('x-powered-by')
+		.use(helmet(helmetOpts))
+		.use(cookieParser())
+		.use(express.static(process.env.RAZZLE_PUBLIC_DIR))
+		.use(
+			morgan('(:date[web]) :method :url :status :res[content-length] - :response-time ms')
+		);
 
-	const { PORT, ISSUER } = process.env;
+	const provider = setupProvider(server, client);
+	// Routes
+	setupRoutes(server, assets, provider);
+};
 
-	const provider = new Provider(ISSUER || `http://localhost:${PORT}`, {
-		adapter: MongoAdapter(client.connection.db),
-		...oidcConfig,
-	});
-
-	// View Routes
-	views(server, assets, provider);
-
-	// OIDC Routes
-	setupProvider(server, assets, provider);
-})().catch((e) => {
+main().catch((e) => {
 	process.exitCode = 1;
 });
 
