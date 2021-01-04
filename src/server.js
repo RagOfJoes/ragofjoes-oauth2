@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-import setupRoutes from 'src/routes';
+import setupRoutes from 'routes';
 import setupProvider from 'provider/setup';
 
 const server = express();
@@ -48,6 +48,7 @@ const main = async () => {
 };
 
 main().catch((e) => {
+	console.error(e);
 	process.exitCode = 1;
 });
 
