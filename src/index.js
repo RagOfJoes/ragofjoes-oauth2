@@ -11,7 +11,7 @@ server
 		console.log('🚀 started on Port: ' + process.env.PORT || 5000);
 	})
 	.on('error', (error) => {
-		console.log(error);
+		console.error(error);
 	});
 
 if (module.hot) {

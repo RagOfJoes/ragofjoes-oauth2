@@ -5,10 +5,21 @@ import responsiveFontSizes from '@material-ui/core/styles/responsiveFontSizes';
 const theme = responsiveFontSizes(
 	createMuiTheme({
 		palette: {
+			type: 'dark',
 			primary: {
 				main: '#a2bdfb',
 				dark: '#617bb9',
 				light: '#a0b1d6',
+			},
+			secondary: {
+				main: '#ced0d7',
+				dark: '#adb3ca',
+				light: '#ffffff',
+			},
+			error: {
+				main: '#e6675e',
+				dark: '#cc3d33',
+				light: '#ff938c',
 			},
 			text: {
 				primary: '#ced0d7',
@@ -29,6 +40,7 @@ const theme = responsiveFontSizes(
 			},
 			MuiFormLabel: {
 				root: {
+					color: '#ced0d7',
 					'&$disabled': {
 						color: 'rgba(255, 255, 255, 0.4)',
 					},

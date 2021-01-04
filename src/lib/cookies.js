@@ -1,6 +1,6 @@
 const isSecure = process.env.NODE_ENV === 'development';
 
-const getShortCookies = () => {
+export const getShortCookies = () => {
 	if (!isSecure) {
 		return { httpOnly: false, signed: true };
 	} else {
@@ -14,7 +14,7 @@ const getShortCookies = () => {
 	}
 };
 
-const getLongCookies = () => {
+export const getLongCookies = () => {
 	// 2 Weeks in MS
 	const maxAge = 14 * 24 * 60 * 60 * 1000;
 	if (!isSecure) {
@@ -29,5 +29,3 @@ const getLongCookies = () => {
 		};
 	}
 };
-
-module.exports = { getShortCookies, getLongCookies };
