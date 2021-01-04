@@ -12,10 +12,13 @@ module.exports = {
 		config = razzleHeroku(config, { target, dev }, webpack);
 		config.resolve.alias = {
 			src: path.resolve(__dirname, 'src'),
+			db: path.resolve(__dirname, 'src/db'),
 			lib: path.resolve(__dirname, 'src/lib/'),
-			Pages: path.resolve(__dirname, 'src/Pages/'),
-			Components: path.resolve(__dirname, 'src/Components/'),
-			'Page-Containers': path.resolve(__dirname, 'src/Page-Containers/'),
+			pages: path.resolve(__dirname, 'src/pages/'),
+			routes: path.resolve(__dirname, 'src/routes'),
+			provider: path.resolve(__dirname, 'src/provider'),
+			components: path.resolve(__dirname, 'src/components/'),
+			'page-containers': path.resolve(__dirname, 'src/page-containers/'),
 		};
 
 		return config;
