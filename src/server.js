@@ -25,14 +25,11 @@ const main = async () => {
 	}
 
 	// Setup express
-	const fixedHelmet =
-		process.env.NODE_ENV === 'production'
-			? helmet()
-			: helmet({
-					contentSecurityPolicy: {
-						reportOnly: true,
-					},
-			  });
+	const fixedHelmet = helmet({
+		contentSecurityPolicy: {
+			reportOnly: true,
+		},
+	});
 	server
 		.disable('x-powered-by')
 		.use(fixedHelmet)
