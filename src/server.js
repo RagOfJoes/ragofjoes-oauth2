@@ -1,4 +1,4 @@
-// import helmet from 'helmet';
+import helmet from 'helmet';
 import morgan from 'morgan';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -24,9 +24,18 @@ const main = async () => {
 		console.error('MongoDB Failed to Connect!', e);
 	}
 
+	// Setup express
+	const fixedHelmet =
+		process.env.NODE_ENV === 'production'
+			? helmet()
+			: helmet({
+					contentSecurityPolicy: {
+						reportOnly: true,
+					},
+			  });
 	server
 		.disable('x-powered-by')
-		// .use(helmet())
+		.use(fixedHelmet)
 		.use(cookieParser())
 		.use(express.static(process.env.RAZZLE_PUBLIC_DIR))
 		.use(
