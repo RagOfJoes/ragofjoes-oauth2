@@ -44,6 +44,6 @@
 	},
 	"devDependencies": {
 		"dotenv": "^8.2.0",
-		"razzle": "^4.0.0-canary.9"
+		"razzle": "^4.0.0-canary.12"
 	}
 }
