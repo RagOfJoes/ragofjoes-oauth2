@@ -32,7 +32,7 @@
 		"lodash": "^4.17.20",
 		"mongoose": "^5.11.4",
 		"morgan": "^1.10.0",
-		"node-sass": "^5.0.0",
+		"node-sass": "^7.0.0",
 		"oidc-provider": "^6.29.8",
 		"prop-types": "^15.7.2",
 		"razzle-heroku": "^3.0.0",
